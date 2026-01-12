@@ -1,16 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter, Playfair_Display } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const playfair = Playfair_Display({ 
@@ -20,10 +10,27 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Our Dairy",
-  description: "For My Yashi ❤️ from .... All our memories in one place.",
+  title: "Our Diary",
+  description: "For My Yashi ❤️ — A journey of us.",
+  // This fixes the Browser Tab Icon
   icons: {
     icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪶</text></svg>",
+  },
+  // This fixes the WhatsApp Preview Card
+  openGraph: {
+    title: "Our Diary",
+    description: "For My Yashi ❤️ — All our memories in one place.",
+    images: [
+      {
+        // A beautiful Peacock Feather image from Unsplash
+        url: "https://images.unsplash.com/photo-1534234828563-0df5067206db?q=80&w=1200&auto=format&fit=crop",
+        width: 1200,
+        height: 630,
+        alt: "Peacock Feather",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
   },
 };
 
