@@ -12,7 +12,8 @@ import {
   Hand, 
   SkipForward, 
   SkipBack, 
-  AlertTriangle 
+  AlertTriangle,
+  Music2
 } from "lucide-react";
 import clsx from "clsx";
 
@@ -32,11 +33,37 @@ const PeacockFeatherIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-// 2. Falling Petals Animation
+// 2. Divine Flute (Krishna's Bansuri) SVG
+const KrishnaFlute = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+    {/* Glow Filter */}
+    <defs>
+      <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="2" result="blur" />
+        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+      </filter>
+    </defs>
+    {/* The Flute Body */}
+    <path d="M10 30 L190 30" stroke="#d97706" strokeWidth="8" strokeLinecap="round" filter="url(#glow)" />
+    <path d="M10 30 L190 30" stroke="#fbbf24" strokeWidth="4" strokeLinecap="round" />
+    {/* Flute Holes */}
+    <circle cx="40" cy="30" r="3" fill="#451a03" />
+    <circle cx="60" cy="30" r="3" fill="#451a03" />
+    <circle cx="80" cy="30" r="3" fill="#451a03" />
+    <circle cx="100" cy="30" r="3" fill="#451a03" />
+    <circle cx="120" cy="30" r="3" fill="#451a03" />
+    <circle cx="140" cy="30" r="3" fill="#451a03" />
+    {/* Hanging Tassels/Decor */}
+    <path d="M180 30 Q180 50 190 55" stroke="#ef4444" strokeWidth="2" />
+    <circle cx="190" cy="55" r="2" fill="#ef4444" />
+  </svg>
+);
+
+// 3. Falling Petals Animation (Improved Visibility)
 const FallingPetals = () => {
-  const petals = Array.from({ length: 25 });
+  const petals = Array.from({ length: 30 }); // Increased count
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+    <div className="absolute inset-0 pointer-events-none overflow-hidden z-[1]">
       {petals.map((_, i) => (
         <motion.div
           key={i}
@@ -44,8 +71,9 @@ const FallingPetals = () => {
           animate={{ 
             y: "100vh", opacity: [0, 1, 0], rotate: [0, 360], x: [0, Math.random() * 100 - 50] 
           }}
-          transition={{ duration: 4 + Math.random() * 4, repeat: Infinity, delay: Math.random() * 2 }}
-          className="absolute text-rose-400/60 text-xl"
+          transition={{ duration: 5 + Math.random() * 5, repeat: Infinity, delay: Math.random() * 2 }}
+          // Made brighter (text-rose-500) and larger (text-2xl)
+          className="absolute text-rose-500/80 text-2xl drop-shadow-sm"
           style={{ left: `${Math.random() * 100}%` }}
         >
           ✿
@@ -57,26 +85,24 @@ const FallingPetals = () => {
 
 // --- DATA ---
 
-// Music Playlist
 const PLAYLIST = [
   {
-    id: "fBFFlL58UTM", // Fairytale - Alexander Rybak
+    id: "fBFFlL58UTM", 
     title: "Fairytale",
     emotion: "POV: Me in 2013, realizing I'm in love with a fairytale.",
   },
   {
-    id: "2Vv-BfVoq4g", // Perfect - Ed Sheeran
+    id: "2Vv-BfVoq4g", 
     title: "Perfect",
     emotion: "Because we were just kids when we fell in love...",
   },
   {
-    id: "rtOvBOTyX00", // A Thousand Years - Christina Perri
+    id: "rtOvBOTyX00", 
     title: "A Thousand Years",
     emotion: "For the years we were apart, my heart never changed.",
   },
 ];
 
-// Sidebar Messages
 const MESSAGES = [
   {
     id: "main",
@@ -111,15 +137,13 @@ const MESSAGES = [
 
 export default function UltimateApology() {
   const [selectedId, setSelectedId] = useState(MESSAGES[0].id);
-  const [showTease, setShowTease] = useState(false);   // For the Warning Modal
-  const [showSecret, setShowSecret] = useState(false); // For the Final Proposal
+  const [showTease, setShowTease] = useState(false);   
+  const [showSecret, setShowSecret] = useState(false); 
   
-  // Music State
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const currentSong = PLAYLIST[currentSongIndex];
 
-  // Slap State
   const [slapCount, setSlapCount] = useState(0);
   const [isShaking, setIsShaking] = useState(false);
 
@@ -182,7 +206,7 @@ export default function UltimateApology() {
       </div>
 
       {/* --- MAIN STAGE --- */}
-      <main className="flex-1 relative flex items-center justify-center p-6 md:p-12 h-full">
+      <main className="flex-1 relative flex items-center justify-center p-6 md:p-12 h-full overflow-y-auto">
         <AnimatePresence mode="wait">
           {!showSecret && !showTease && activeMessage ? (
             <motion.div
@@ -191,18 +215,29 @@ export default function UltimateApology() {
               initial={{ opacity: 0, y: 20 }}
               exit={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
               transition={{ duration: isShaking ? 0.3 : 0.8 }}
-              className="relative w-full max-w-2xl z-10"
+              // ADDED PADDING BOTTOM FOR MOBILE (pb-32) so music player doesn't hide text
+              className="relative w-full max-w-2xl z-10 pb-32 md:pb-0"
             >
+              {/* === ANIMATED KRISHNA FLUTE (DIVINE ELEMENT) === */}
+              <motion.div 
+                initial={{ y: -10, opacity: 0 }}
+                animate={{ y: [0, -10, 0], opacity: 1 }}
+                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                className="absolute -top-12 left-1/2 -translate-x-1/2 z-0"
+              >
+                <KrishnaFlute className="w-48 h-16 drop-shadow-lg opacity-80" />
+              </motion.div>
+
               <div className="bg-white/70 backdrop-blur-xl p-8 md:p-14 rounded-[2rem] shadow-[0_10px_40px_-10px_rgba(13,148,136,0.2)] border border-white relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-amber-400 via-teal-500 to-blue-600" />
                 
-                <h2 className="text-3xl md:text-5xl font-serif text-teal-950 mb-6">
+                <h2 className="text-3xl md:text-5xl font-serif text-teal-950 mb-6 relative z-10">
                   {activeMessage.title}
                 </h2>
                 
                 {activeMessage.isInteractive ? (
                   // SLAP PROTOCOL CONTENT
-                  <div className="space-y-6">
+                  <div className="space-y-6 relative z-10">
                     <p className="text-lg text-slate-700 leading-relaxed">
                       I admit it. I distanced myself because I felt I wasn't enough, just like 
                       back in school. But I forgot who you are.
@@ -242,7 +277,7 @@ export default function UltimateApology() {
                         👋 SLAP ME!
                       </motion.button>
                       <div className="text-rose-800 font-mono font-bold">
-                        Sense Slapped Into Manish: {slapCount} times
+                        Sense Slapped Into me: {slapCount} times
                       </div>
                     </div>
                     {/* POW Effect */}
@@ -262,7 +297,7 @@ export default function UltimateApology() {
                   </div>
                 ) : (
                   // STANDARD CONTENT
-                  <div className="text-lg md:text-xl leading-loose text-slate-700 font-light">
+                  <div className="text-lg md:text-xl leading-loose text-slate-700 font-light relative z-10">
                     {activeMessage.content}
                   </div>
                 )}
@@ -271,8 +306,8 @@ export default function UltimateApology() {
           ) : null}
         </AnimatePresence>
 
-        {/* --- MUSIC PLAYER --- */}
-        <div className="fixed bottom-6 left-6 md:bottom-12 md:left-12 z-50 flex items-end gap-2">
+        {/* --- MUSIC PLAYER (Fixed Bottom Left) --- */}
+        <div className="fixed bottom-6 left-6 md:bottom-12 md:left-12 z-50 flex items-end gap-2 max-w-[80vw] md:max-w-none">
           <motion.div
             initial={{ width: 64 }}
             animate={{ width: isPlaying ? "auto" : 64 }}
@@ -290,14 +325,14 @@ export default function UltimateApology() {
 
             {isPlaying && (
               <div className="flex items-center gap-4 px-4 pr-6">
-                <div className="flex flex-col min-w-[200px]">
+                <div className="flex flex-col min-w-[120px] md:min-w-[200px]">
                   <span className="text-xs font-bold text-rose-500 uppercase tracking-wider">Now Playing</span>
-                  <span className="font-serif font-bold text-slate-800">{currentSong.title}</span>
+                  <span className="font-serif font-bold text-slate-800 truncate">{currentSong.title}</span>
                   <motion.span 
                     key={currentSongIndex}
                     initial={{ opacity: 0, y: 5 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-[10px] text-slate-500 italic truncate max-w-[200px]"
+                    className="text-[10px] text-slate-500 italic truncate max-w-[120px] md:max-w-[200px]"
                   >
                     {currentSong.emotion}
                   </motion.span>
@@ -311,7 +346,6 @@ export default function UltimateApology() {
             )}
           </motion.div>
           
-          {/* INVISIBLE YOUTUBE PLAYER */}
           {isPlaying && (
             <div className="hidden">
                <iframe 
@@ -325,11 +359,12 @@ export default function UltimateApology() {
           )}
         </div>
 
-        {/* --- FLOATING FEATHER (TRIGGER FOR TEASE) --- */}
+        {/* --- FLOATING FEATHER (MOVED TO TOP RIGHT) --- */}
         <AnimatePresence>
           {!showSecret && !showTease && (
             <motion.div
-              className="fixed bottom-6 right-6 md:bottom-12 md:right-12 z-50 cursor-pointer"
+              // FIXED: Moved to TOP right so it doesn't overlap music player
+              className="fixed top-6 right-6 md:top-12 md:right-12 z-50 cursor-pointer"
               onClick={() => setShowTease(true)}
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -341,7 +376,7 @@ export default function UltimateApology() {
                 <div className="relative w-20 h-20 md:w-24 md:h-24 bg-gradient-to-b from-teal-900 to-slate-900 rounded-full border-4 border-amber-400 shadow-2xl flex items-center justify-center overflow-hidden">
                   <PeacockFeatherIcon className="w-16 h-16 md:w-20 md:h-20 drop-shadow-lg" />
                 </div>
-                <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-white px-3 py-1 rounded-full text-xs font-bold text-teal-900 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                <div className="absolute top-24 left-1/2 -translate-x-1/2 bg-white px-3 py-1 rounded-full text-xs font-bold text-teal-900 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                   Open My Heart
                 </div>
               </div>
@@ -349,7 +384,7 @@ export default function UltimateApology() {
           )}
         </AnimatePresence>
 
-        {/* --- TEASE MODAL (THE WARNING) --- */}
+        {/* --- TEASE MODAL --- */}
         <AnimatePresence>
           {showTease && (
             <motion.div
@@ -398,7 +433,7 @@ export default function UltimateApology() {
           )}
         </AnimatePresence>
 
-        {/* --- SECRET REVEAL (FINAL PROPOSAL) --- */}
+        {/* --- SECRET REVEAL --- */}
         <AnimatePresence>
           {showSecret && (
             <motion.div
@@ -451,7 +486,6 @@ export default function UltimateApology() {
             </motion.div>
           )}
         </AnimatePresence>
-        {/* Baby I love you */}
       </main>
     </div>
   );
