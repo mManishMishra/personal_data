@@ -81,7 +81,7 @@ const FallingPetals = () => {
 const STORY_CHAPTERS = [
   {
     title: "The New Girl",
-    text: "It was Class 6. I had just transferred to the new branch, of our school. Then, you walked in late. You took the first bench, right row, right side, sitting next to Shobha and another girl. I used to look at you admire you from distance. Had a teacher who once caught me staring at you and scolded me! It was the beginning of my crush on you."
+    text: "It was Class 6. I had just transferred to the new branch, of our school. Then, you walked in as late joinee. You took the first bench, right row, right side, sitting next to Shobha and another girl. I used to look at you admire you from distance. Had a teacher who once caught me staring at you and scolded me! It was the beginning of my crush on you."
   },
   {
     title: "The Unattainable Star",
