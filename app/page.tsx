@@ -94,6 +94,14 @@ const STORY_CHAPTERS = [
   {
     title: "The Khaki Shorts Crisis",
     text: "I was so intimidated by how cool you were that my own uniform embarrassed me. I hated wearing those khaki shorts in front of you. I literally went on strike at home! I told my mom: 'I am NOT going to school until I get full pants!' just so I could look like a gentleman for you."
+  },
+  {
+    title: "The Front Bench War",
+    text: "In Class 7, you sat right in front of me. We were friends now, but you had a crush on someone else. It made me so jealous! It started a silent war between me and him. I used to take your copies & files home just to hold something of yours and admire you through it . And remember that guy who shoulder-rubbed you? I fought him. Because even if you liked someone else, I was the one protecting you(In my own weird way!)."
+  },
+  {
+    title: "The Kabaddi Miracle",
+    text: "I’m fuzzy on if this was 7th or 8th, but my heart remembers clearly. It was sunny afternoon we were out in ground right next to end of corridor. You were playing Kabaddi and we were against each other . It might have been embarrassing for you, but for me it was the closest i had you !!! you ran into me... and for a moment everything stopped , I held you. My only hug. I dream of that. I crave for it ... I want you to run to me again, and this time, I will catch you and never let you go."
   }
 ];
 
@@ -263,7 +271,7 @@ export default function UltimateApology() {
                       <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }} onClick={handleSlap} className="px-8 py-4 bg-rose-500 text-white font-bold text-xl rounded-full shadow-xl hover:bg-rose-600 active:bg-rose-700 transition-colors flex items-center gap-2">
                         <Hand size={24} /> 👋 SLAP ME!
                       </motion.button>
-                      <div className="text-rose-800 font-mono font-bold">Sense Slapped Into Manish: {slapCount} times</div>
+                      <div className="text-rose-800 font-mono font-bold">Sense Slapped Into Me: {slapCount} times</div>
                     </div>
                     <AnimatePresence>{isShaking && (<motion.div initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1.5, opacity: 1 }} exit={{ opacity: 0 }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-6xl font-black text-red-600 z-50 pointer-events-none" style={{ textShadow: "2px 2px 0px white" }}>POW! 💥</motion.div>)}</AnimatePresence>
                   </div>
