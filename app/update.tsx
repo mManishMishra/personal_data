@@ -108,7 +108,7 @@ const STORY_CHAPTERS = [
   {
     title: "The Kabaddi Miracle",
     img: "/hug.png",
-    text: "I’m fuzzy on if this was 7th or 8th, but my heart remembers clearly. It was sunny afternoon we were out in ground right next to end of corridor. You were playing Kabaddi and we were against each other . It might have been embarrassing for you, but for me it was the closest i had you !!! you ran into me... and for a moment everything stopped , I held you. My favt hug !!!. I dream of that. I crave for it ... I want you to run to me again, and this time, I will catch you and never let you go."
+    text: "I’m fuzzy on if this was 7th or 8th, but my heart remembers clearly. It was sunny afternoon we were out in ground right next to end of corridor. You were playing Kabaddi and we were against each other . It might have been embarrassing for you, but for me it was the closest i had you !!! you ran into me... and for a moment everything stopped , I held you. My only hug. I dream of that. I crave for it ... I want you to run to me again, and this time, I will catch you and never let you go."
   }
 ];
 
