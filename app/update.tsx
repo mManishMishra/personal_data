@@ -102,7 +102,7 @@ const STORY_CHAPTERS = [
   },
   {
     title: "The Front Bench War",
-    img: "/front_desk.png",
+    img: "/our_fight.png", //New image
     text: "In Class 7, you sat right in front of me. We were friends now, but you had a crush on someone else. It made me so jealous! It started a silent war between me and him. I used to take your copies & files home just to hold something of yours and admire you through it . And remember that guy who shoulder-rubbed you? I fought him. Because even if you liked someone else, I was the one protecting you(In my own weird way!)."
   },
   {
