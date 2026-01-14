@@ -127,8 +127,8 @@ const MESSAGES = [
   },
   {
     id: "our_story",
-    date: "Class 6 Diaries",
-    title: "How It Started",
+    date: "Memory Lane",
+    title: "Memories of Us",
     icon: <Library size={16} />,
     isStory: true, // TRIGGERS STORY MODE
   },
