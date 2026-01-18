@@ -3,27 +3,21 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
-  BookOpen, 
-  X, 
-  Sparkles, 
-  Heart, 
-  Pause, 
-  Play, 
-  Hand, 
-  SkipForward, 
-  SkipBack, 
+  BookOpen, Heart, Pause, Play, Hand, Library, ArrowRight, ArrowLeft, 
+  MessageCircleHeart, Music2, Gift, Sparkles, Clock, Lock, Phone,
   AlertTriangle,
-  Library,
-  ArrowRight,
-  ArrowLeft,
-  MessageCircleHeart,
-  Music2
+  SkipBack,
+  SkipForward,
+  X
 } from "lucide-react";
 import clsx from "clsx";
 import Image from "next/image";
 
-// --- CUSTOM COMPONENTS ---
+// Import Data and Components
+import { BLUSH_MESSAGES, PLAYLIST, TIMELINE_DATA } from "./data";
+import { FallingPetals } from "./components/FallingPetals"; 
 
+// --- SVG COMPONENTS ---
 const PeacockFeatherIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 100 150" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
     <path d="M50 140 Q50 80 50 10" stroke="#d97706" strokeWidth="2" strokeLinecap="round" />
@@ -58,152 +52,17 @@ const KrishnaFlute = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const FallingPetals = () => {
-  const petals = Array.from({ length: 30 });
-  return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden z-[1]">
-      {petals.map((_, i) => (
-        <motion.div
-          key={i}
-          initial={{ y: -50, opacity: 0, rotate: 0 }}
-          animate={{ 
-            y: "100vh", opacity: [0, 1, 0], rotate: [0, 360], x: [0, Math.random() * 100 - 50] 
-          }}
-          transition={{ duration: 5 + Math.random() * 5, repeat: Infinity, delay: Math.random() * 2 }}
-          className="absolute text-rose-500/80 text-2xl drop-shadow-sm"
-          style={{ left: `${Math.random() * 100}%` }}
-        >
-          ✿
-        </motion.div>
-      ))}
-    </div>
-  );
-};
-
-// --- DATA: BLUSH MESSAGES (CHANGES ON EVERY VISIT) ---
-const BLUSH_MESSAGES = [
-  "Caught you! You were missing me, weren't you? 😉",
-  "Checking our diary again? Admit it, you're smiling.",
-  "I knew you'd come back. The Blue House Captain always checks on her team.",
-  "Still thinking about that Kabaddi hug? Because I am.",
-  "Warning: Excessive cuteness detected in the vicinity. Oh wait, it's just you.",
-  "You look beautiful today. I don't need to see you to know that.",
-  "Is it the Khaki shorts story that brings you back? Haha!",
-  "My heart skips a beat every time you open this page. Literally.",
-  "Okay, you win. I miss you more than you miss me.",
-  "Just a reminder: You are my fairytale."
-];
-
-// --- DATA: THE STORY CHAPTERS (WITH IMAGES & SONG SUGGESTIONS) ---
-const STORY_CHAPTERS = [
-  {
-    title: "The New Girl",
-    img: "/first_meet.png", 
-    text: "It was Class 6. I had just transferred to the new branch of our school. Then, you walked in as a late joinee. You took the first bench, right row, right side, sitting next to Shobha. I used to look at you, admire you from a distance. Had a teacher who once caught me staring at you and scolded me! It was the beginning of my crush on you.",
-    songSuggestion: "Pehla Nasha"
-  },
-  {
-    title: "The Unattainable Star",
-    img: "/kho_kho.png",
-    text: "You were the Topper. You didn't even seem to try hard, yet you were brilliant. You were confident, great at Kho-Kho, and fearless. I was just a boy admiring you from a distance. Truth be told? Everyone had a crush on you.",
-    songSuggestion: "Fairytale"
-  },
-  {
-    title: "Card Cricket Wars",
-    img: "/cricket_game.png",
-    text: "We were stupid kids. We used to play 'Card Cricket' in class, betting on random things. But the biggest prize? Whoever won the match 'got' you. It was silly, but I fought those card battles like I was fighting for a kingdom. I just wanted to be associated with you, even in a game.",
-    songSuggestion: "Tera Hone Laga Hoon"
-  },
-  {
-    title: "The Khaki Shorts Crisis",
-    img: "/emb.png",
-    text: "I was so intimidated by how cool you were that my own uniform embarrassed me. I hated wearing those khaki shorts in front of you. I literally went on strike at home! I told my mom: 'I am NOT going to school until I get full pants!' just so I could look like a gentleman for you.",
-    songSuggestion: "Perfect"
-  },
-  {
-    title: "The Front Bench War",
-    img: "/our_fight.png",
-    text: "In Class 7, you sat right in front of me. We were friends now, but you had a crush on someone else. It made me so jealous! It started a silent war between me and him. I used to take your copies & files home just to hold something of yours. And remember that guy who shoulder-rubbed you? I fought him. Because even if you liked someone else, I was the one protecting you (In my own weird way!).",
-    songSuggestion: "Tum Se Hi"
-  },
-  {
-    title: "The Kabaddi Miracle",
-    img: "/hug.png",
-    text: "I’m fuzzy on if this was 7th or 8th, but my heart remembers clearly. It was a sunny afternoon, we were out on the ground right next to the end of the corridor. You were playing Kabaddi and we were against each other. It might have been embarrassing for you, but for me, it was the closest I had you!!! You ran into me... and for a moment everything stopped. I held you. My favorite hug!!! I dream of that. I crave it... I want you to run to me again, and this time, I will catch you and never let you go.",
-    songSuggestion: "Apna Bana Le"
-  }
-];
-
-// --- UPDATED PLAYLIST (BOLLYWOOD MIX) ---
-const PLAYLIST = [
-  { 
-    id: "b1kQv8d-lqQ", // Pehla Nasha
-    title: "Pehla Nasha", 
-    emotion: "Class 6: When I first saw you." 
-  },
-  { 
-    id: "fBFFlL58UTM", // Fairytale
-    title: "Fairytale", 
-    emotion: "POV: You were my magic." 
-  },
-  { 
-    id: "r6t2f1-sBbs", // Tera Hone Laga Hoon
-    title: "Tera Hone Laga Hoon", 
-    emotion: "Class 8: When the crush became real." 
-  },
-  { 
-    id: "2Vv-BfVoq4g", // Perfect
-    title: "Perfect", 
-    emotion: "We were just kids..." 
-  },
-  { 
-    id: "mt9xg0mmt28", // Tum Se Hi (Jab We Met)
-    title: "Tum Se Hi", 
-    emotion: "The Separation: I never stopped thinking of you." 
-  },
-  { 
-    id: "uDTG61Jd1Yc", // Apna Bana Le (Bhediya)
-    title: "Apna Bana Le", 
-    emotion: "To my Healer: You are my temple." 
-  }
-];
-
-const MESSAGES = [
-  {
-    id: "main",
-    date: "12 Jan 2026",
-    title: "To My Healer",
-    icon: <Heart size={16} />,
-    content: (
-      <>
-        <p>I am profoundly sorry. You healed me all last week, took me out of my despair, and instead of just being happy, I got scared. I overthought "how you might feel" and tried to distance myself.</p>
-        <p className="mt-4">I know it made you mad. It should have. I was being an idiot who ran away when he should have stayed.</p>
-        <p className="mt-6 font-medium text-teal-900 italic border-l-4 border-amber-400 pl-4">"Like a flute is hollow without breath, I am just noise without your calm."</p>
-      </>
-    ),
-  },
-  {
-    id: "our_story",
-    date: "Memory Lane",
-    title: "Memories of Us",
-    icon: <Library size={16} />,
-    isStory: true, 
-  },
-  {
-    id: "slap_protocol",
-    date: "The Fix",
-    title: "The 'Blue House Captain' Protocol",
-    icon: <Hand size={16} />,
-    isInteractive: true,
-  },
+// Sidebar Menu Items - Cleaned up to match new structure
+const MENU_ITEMS = [
+  { id: "our_story", title: "Our Timeline", date: "The Journey", icon: <Library size={16} />, isStory: true },
+  { id: "ghibli_pic", title: "A Glimpse of Forever", date: "Dream", icon: <Sparkles size={16} />, isImage: true },
+  { id: "slap_protocol", title: "The 'Blue House Captain'", date: "The Fix", icon: <Hand size={16} />, isInteractive: true },
 ];
 
 export default function UltimateApology() {
-  const [selectedId, setSelectedId] = useState(MESSAGES[0].id);
+  const [selectedId, setSelectedId] = useState(MENU_ITEMS[0].id);
   const [showTease, setShowTease] = useState(false);   
   const [showSecret, setShowSecret] = useState(false); 
-  
-  // New States
   const [showBlushWelcome, setShowBlushWelcome] = useState(true);
   const [todaysBlushMsg, setTodaysBlushMsg] = useState("");
 
@@ -213,22 +72,19 @@ export default function UltimateApology() {
 
   const [slapCount, setSlapCount] = useState(0);
   const [isShaking, setIsShaking] = useState(false);
+  
+  // Story State
+  const [activeEra, setActiveEra] = useState<"school" | "reconnection" | "present">("school");
   const [storyIndex, setStoryIndex] = useState(0);
 
-  const activeMessage = MESSAGES.find((m) => m.id === selectedId);
+  const activeMessage = MENU_ITEMS.find((m) => m.id === selectedId);
 
-  // --- LOGIC: ROTATE BLUSH MESSAGE ON VISIT ---
   useEffect(() => {
-    // 1. Get visit count from local storage
     const storedCount = localStorage.getItem("visitCount");
     let count = 0;
     if (storedCount) count = parseInt(storedCount, 10);
-
-    // 2. Select message based on count (loops automatically)
     const msgIndex = count % BLUSH_MESSAGES.length;
     setTodaysBlushMsg(BLUSH_MESSAGES[msgIndex]);
-
-    // 3. Increment count (using Session Storage to prevent increment on simple Refresh)
     const sessionVisited = sessionStorage.getItem("sessionVisited");
     if (!sessionVisited) {
        localStorage.setItem("visitCount", (count + 1).toString());
@@ -252,31 +108,18 @@ export default function UltimateApology() {
     setIsPlaying(true);
   };
 
+  const currentChapter = TIMELINE_DATA[activeEra].chapters[storyIndex];
+
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-[#FFF8E1] via-[#E0F2F1] to-[#E0F7FA] text-slate-800 font-sans overflow-hidden flex flex-col md:flex-row relative">
       <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/arabesque.png')] pointer-events-none" />
 
-      {/* --- BLUSH WELCOME OVERLAY --- */}
+      {/* BLUSH WELCOME */}
       <AnimatePresence>
         {showBlushWelcome && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
-            transition={{ duration: 0.8 }}
-            className="fixed inset-0 z-[100] bg-teal-950 flex flex-col items-center justify-center p-6 text-center"
-          >
-             <motion.div 
-               initial={{ y: 20, opacity: 0 }}
-               animate={{ y: 0, opacity: 1 }}
-               transition={{ delay: 0.5 }}
-               className="max-w-md bg-white/10 backdrop-blur-md border border-white/20 p-8 rounded-3xl"
-             >
-                <div className="flex justify-center mb-6">
-                   <div className="p-4 bg-rose-500 rounded-full shadow-[0_0_30px_rgba(244,63,94,0.6)] animate-pulse">
-                      <MessageCircleHeart size={40} className="text-white" />
-                   </div>
-                </div>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }} className="fixed inset-0 z-[100] bg-teal-950 flex flex-col items-center justify-center p-6 text-center">
+             <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.5 }} className="max-w-md bg-white/10 backdrop-blur-md border border-white/20 p-8 rounded-3xl">
+                <div className="flex justify-center mb-6"><div className="p-4 bg-rose-500 rounded-full shadow-[0_0_30px_rgba(244,63,94,0.6)] animate-pulse"><MessageCircleHeart size={40} className="text-white" /></div></div>
                 <h2 className="text-3xl font-serif text-amber-300 mb-6">Wait...</h2>
                 <p className="text-xl text-white/90 leading-relaxed font-light italic mb-8">"{todaysBlushMsg}"</p>
                 <button onClick={() => setShowBlushWelcome(false)} className="px-8 py-3 bg-white text-teal-900 font-bold rounded-full hover:scale-105 active:scale-95 transition-transform">Enter Our World &rarr;</button>
@@ -288,22 +131,12 @@ export default function UltimateApology() {
       {/* SIDEBAR */}
       <div className="w-full md:w-80 bg-teal-950/90 backdrop-blur-md flex flex-col shrink-0 z-20 shadow-2xl">
         <div className="p-6 border-b border-teal-800 bg-teal-900/50">
-          <h1 className="font-serif text-2xl text-amber-400 flex items-center gap-2">
-            <BookOpen size={24} />
-            <span>Soul Journal</span>
-          </h1>
+          <h1 className="font-serif text-2xl text-amber-400 flex items-center gap-2"><BookOpen size={24} /><span>Soul Journal</span></h1>
           <p className="text-xs text-teal-300 mt-1 uppercase tracking-widest font-semibold">For Yashi</p>
         </div>
         <div className="flex-1 overflow-x-auto md:overflow-y-auto p-4 flex md:flex-col gap-2 no-scrollbar">
-          {MESSAGES.map((msg) => (
-            <button
-              key={msg.id}
-              onClick={() => { setSelectedId(msg.id); setShowTease(false); setShowSecret(false); setStoryIndex(0); }}
-              className={clsx(
-                "whitespace-nowrap md:whitespace-normal flex-shrink-0 text-left p-4 rounded-xl transition-all duration-300 border-l-4",
-                selectedId === msg.id ? "bg-teal-900 border-amber-400 text-white shadow-lg" : "bg-teal-900/30 text-teal-200 border-transparent hover:bg-teal-900/50"
-              )}
-            >
+          {MENU_ITEMS.map((msg) => (
+            <button key={msg.id} onClick={() => { setSelectedId(msg.id); setShowTease(false); setShowSecret(false); setStoryIndex(0); }} className={clsx("whitespace-nowrap md:whitespace-normal flex-shrink-0 text-left p-4 rounded-xl transition-all duration-300 border-l-4", selectedId === msg.id ? "bg-teal-900 border-amber-400 text-white shadow-lg" : "bg-teal-900/30 text-teal-200 border-transparent hover:bg-teal-900/50")}>
               <div className="flex items-center gap-2 text-xs font-bold text-amber-400/80 mb-1">{msg.icon} {msg.date}</div>
               <span className="block font-serif font-medium">{msg.title}</span>
             </button>
@@ -315,85 +148,54 @@ export default function UltimateApology() {
       <main className="flex-1 relative flex items-center justify-center p-6 md:p-12 h-full overflow-y-auto">
         <AnimatePresence mode="wait">
           {!showSecret && !showTease && activeMessage ? (
-            <motion.div
-              key={activeMessage.id}
-              animate={isShaking ? { x: [-10, 10, -10, 10, 0], rotate: [-2, 2, -2, 2, 0] } : { opacity: 1, y: 0 }}
-              initial={{ opacity: 0, y: 20 }}
-              exit={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-              transition={{ duration: isShaking ? 0.3 : 0.8 }}
-              className="relative w-full max-w-2xl z-10 pb-32 md:pb-0"
-            >
-              <motion.div initial={{ y: -10, opacity: 0 }} animate={{ y: [0, -10, 0], opacity: 1 }} transition={{ repeat: Infinity, duration: 4 }} className="absolute -top-12 left-1/2 -translate-x-1/2 z-0">
-                <KrishnaFlute className="w-48 h-16 drop-shadow-lg opacity-80" />
-              </motion.div>
+            <motion.div key={activeMessage.id} animate={isShaking ? { x: [-10, 10, -10, 10, 0], rotate: [-2, 2, -2, 2, 0] } : { opacity: 1, y: 0 }} initial={{ opacity: 0, y: 20 }} exit={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }} transition={{ duration: 0.8 }} className="relative w-full max-w-2xl z-10 pb-32 md:pb-0">
+              <motion.div initial={{ y: -10, opacity: 0 }} animate={{ y: [0, -10, 0], opacity: 1 }} transition={{ repeat: Infinity, duration: 4 }} className="absolute -top-12 left-1/2 -translate-x-1/2 z-0"><KrishnaFlute className="w-48 h-16 drop-shadow-lg opacity-80" /></motion.div>
 
-              <div className="bg-white/70 backdrop-blur-xl p-8 md:p-14 rounded-[2rem] shadow-[0_10px_40px_-10px_rgba(13,148,136,0.2)] border border-white relative overflow-hidden min-h-[500px] flex flex-col justify-center">
+              <div className="bg-white/70 backdrop-blur-xl p-8 md:p-14 rounded-[2rem] shadow-[0_10px_40px_-10px_rgba(13,148,136,0.2)] border border-white relative overflow-hidden min-h-[550px] flex flex-col justify-center">
                 <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-amber-400 via-teal-500 to-blue-600" />
                 
                 {activeMessage.isStory ? (
-                  // === STORY MODE ===
+                  // STORY MODE
                   <div className="relative flex flex-col h-full">
-                    <div className="flex justify-between items-center mb-4">
-                        <div className="text-xs font-bold text-teal-600 uppercase tracking-widest flex items-center gap-2">
-                            <Library size={14} /> Chapter {storyIndex + 1} of {STORY_CHAPTERS.length}
-                        </div>
-                        {/* VIBE CHECK (SONG SUGGESTION) */}
-                        <div className="flex items-center gap-1 text-[10px] text-rose-500 font-bold bg-rose-50 px-2 py-1 rounded-full border border-rose-200">
-                           <Music2 size={10} /> Vibe: {STORY_CHAPTERS[storyIndex].songSuggestion}
-                        </div>
+                    <div className="flex gap-2 mb-6 overflow-x-auto pb-2 no-scrollbar">
+                      {Object.entries(TIMELINE_DATA).map(([key, data]) => (
+                        <button key={key} onClick={() => { setActiveEra(key as any); setStoryIndex(0); }} className={clsx("px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-2 whitespace-nowrap transition-all", activeEra === key ? "bg-teal-800 text-white shadow-md" : "bg-teal-50 text-teal-600 border border-teal-100 hover:bg-teal-100")}>
+                          {key === "school" ? <BookOpen size={14} /> : key === "reconnection" ? <Phone size={14} /> : <Sparkles size={14} />} {data.label}
+                        </button>
+                      ))}
                     </div>
-
-                    {/* DYNAMIC IMAGE AREA */}
+                    <div className="flex justify-between items-center mb-4">
+                        <div className="text-xs font-bold text-teal-600 uppercase tracking-widest flex items-center gap-2">Chapter {storyIndex + 1} of {TIMELINE_DATA[activeEra].chapters.length}</div>
+                        <div className="flex items-center gap-1 text-[10px] text-rose-500 font-bold bg-rose-50 px-2 py-1 rounded-full border border-rose-200"><Music2 size={10} /> Vibe: {currentChapter.songSuggestion}</div>
+                    </div>
                     <div className="w-full aspect-video relative mb-6 rounded-xl overflow-hidden shadow-lg bg-teal-50 border-4 border-white">
                         <AnimatePresence mode="wait">
-                            <motion.div
-                                key={storyIndex}
-                                initial={{ opacity: 0, scale: 1.1 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.5 }}
-                                className="absolute inset-0"
-                            >
-                                <Image
-                                    src={STORY_CHAPTERS[storyIndex].img}
-                                    alt={STORY_CHAPTERS[storyIndex].title}
-                                    fill
-                                    className="object-cover"
-                                />
+                            <motion.div key={`${activeEra}-${storyIndex}`} initial={{ opacity: 0, scale: 1.1 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }} className="absolute inset-0">
+                                <Image src={currentChapter.img} alt={currentChapter.title} fill className={clsx("object-cover", (currentChapter as any).isLocked && "blur-sm opacity-50")} />
+                                {(currentChapter as any).isLocked && (<div className="absolute inset-0 flex items-center justify-center"><div className="bg-white/80 p-4 rounded-full shadow-xl"><Lock size={32} className="text-teal-900" /></div></div>)}
                             </motion.div>
                         </AnimatePresence>
                     </div>
-
-                    <motion.div
-                      key={storyIndex}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      <h2 className="text-2xl md:text-3xl font-serif text-teal-950 mb-4">{STORY_CHAPTERS[storyIndex].title}</h2>
-                      <p className="text-base md:text-lg text-slate-700 leading-relaxed font-light">{STORY_CHAPTERS[storyIndex].text}</p>
+                    <motion.div key={`txt-${activeEra}-${storyIndex}`} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.5 }}>
+                      <h2 className="text-2xl md:text-3xl font-serif text-teal-950 mb-4">{currentChapter.title}</h2>
+                      <p className="text-base md:text-lg text-slate-700 leading-relaxed font-light">{currentChapter.text}</p>
                     </motion.div>
-
                     <div className="flex gap-4 mt-8 pt-6 border-t border-amber-100">
-                      <button 
-                        onClick={() => setStoryIndex(i => Math.max(0, i - 1))}
-                        disabled={storyIndex === 0}
-                        className="px-4 py-2 rounded-full border border-teal-200 text-teal-700 disabled:opacity-30 hover:bg-teal-50 flex items-center gap-2 transition-all"
-                      >
-                        <ArrowLeft size={16} /> Prev
-                      </button>
-                      <button 
-                        onClick={() => setStoryIndex(i => Math.min(STORY_CHAPTERS.length - 1, i + 1))}
-                        disabled={storyIndex === STORY_CHAPTERS.length - 1}
-                        className="px-6 py-2 rounded-full bg-teal-800 text-white disabled:opacity-50 disabled:bg-slate-400 hover:bg-teal-900 flex items-center gap-2 shadow-lg transition-all ml-auto"
-                      >
-                        Next Chapter <ArrowRight size={16} />
-                      </button>
+                      <button onClick={() => setStoryIndex(i => Math.max(0, i - 1))} disabled={storyIndex === 0} className="px-4 py-2 rounded-full border border-teal-200 text-teal-700 disabled:opacity-30 hover:bg-teal-50 flex items-center gap-2 transition-all"><ArrowLeft size={16} /> Prev</button>
+                      <button onClick={() => setStoryIndex(i => Math.min(TIMELINE_DATA[activeEra].chapters.length - 1, i + 1))} disabled={storyIndex === TIMELINE_DATA[activeEra].chapters.length - 1} className="px-6 py-2 rounded-full bg-teal-800 text-white disabled:opacity-50 disabled:bg-slate-400 hover:bg-teal-900 flex items-center gap-2 shadow-lg transition-all ml-auto">Next Chapter <ArrowRight size={16} /></button>
                     </div>
                   </div>
+                ) : activeMessage.isImage ? (
+                  // IMAGE MODE
+                  <div className="flex flex-col items-center justify-center">
+                    <motion.div initial={{ scale: 0.8, rotate: -5, opacity: 0 }} animate={{ scale: 1, rotate: 0, opacity: 1 }} transition={{ type: "spring", duration: 1.5 }} className="bg-white p-4 pb-12 shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500 max-w-sm">
+                      <div className="aspect-square w-full bg-teal-100 relative overflow-hidden mb-2"><Image src="/us.png" alt="Us" width={400} height={400} className="object-cover w-full h-full"/></div>
+                      <div className="text-center font-handwriting text-slate-600 font-bold text-xl mt-4" style={{ fontFamily: 'cursive' }}>Me & You (In my dreams) ❤️</div>
+                    </motion.div>
+                    <p className="mt-8 text-center text-teal-800/60 text-sm italic">"Remember when you hopped on my bus just to see my village? <br/> That was the moment I knew."</p>
+                  </div>
                 ) : activeMessage.isInteractive ? (
-                  // === SLAP MODE ===
+                  // SLAP MODE
                   <div className="space-y-6 relative z-10">
                     <p className="text-lg text-slate-700 leading-relaxed">I admit it. I distanced myself because I felt I wasn't enough, just like back in school.</p>
                     <p className="text-lg text-slate-700 leading-relaxed">You are the <strong>Vibrant Girl</strong> I always chased. The Topper who shared her files just to help us. But my most precious memory is when you hopped onto my bus—just for fun, to see my village.</p>
@@ -401,20 +203,12 @@ export default function UltimateApology() {
                     <p className="font-bold text-teal-800">I need you to do that again. When I try to run, don't let me. Just drag me back. Or... just slap some sense into me.</p>
                     <div className="mt-8 p-6 bg-rose-50 rounded-2xl border-2 border-rose-100 flex flex-col items-center gap-4">
                       <div className="text-sm font-bold text-rose-400 uppercase tracking-widest">Overthinking Neutralizer</div>
-                      <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }} onClick={handleSlap} className="px-8 py-4 bg-rose-500 text-white font-bold text-xl rounded-full shadow-xl hover:bg-rose-600 active:bg-rose-700 transition-colors flex items-center gap-2">
-                        <Hand size={24} /> 👋 SLAP ME!
-                      </motion.button>
+                      <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }} onClick={handleSlap} className="px-8 py-4 bg-rose-500 text-white font-bold text-xl rounded-full shadow-xl hover:bg-rose-600 active:bg-rose-700 transition-colors flex items-center gap-2"><Hand size={24} /> 👋 SLAP ME!</motion.button>
                       <div className="text-rose-800 font-mono font-bold">Sense Slapped Into Me: {slapCount} times</div>
                     </div>
                     <AnimatePresence>{isShaking && (<motion.div initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1.5, opacity: 1 }} exit={{ opacity: 0 }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-6xl font-black text-red-600 z-50 pointer-events-none" style={{ textShadow: "2px 2px 0px white" }}>POW! 💥</motion.div>)}</AnimatePresence>
                   </div>
-                ) : (
-                  // === STANDARD CONTENT ===
-                  <>
-                    <h2 className="text-3xl md:text-5xl font-serif text-teal-950 mb-6 relative z-10">{activeMessage.title}</h2>
-                    <div className="text-lg md:text-xl leading-loose text-slate-700 font-light relative z-10">{activeMessage.content}</div>
-                  </>
-                )}
+                ) : null}
               </div>
             </motion.div>
           ) : null}
@@ -423,9 +217,7 @@ export default function UltimateApology() {
         {/* MUSIC PLAYER */}
         <div className="fixed bottom-6 left-6 md:bottom-12 md:left-12 z-50 flex items-end gap-2 max-w-[80vw] md:max-w-none">
           <motion.div initial={{ width: 64 }} animate={{ width: isPlaying ? "auto" : 64 }} className="bg-white/90 backdrop-blur-md rounded-full shadow-2xl border-2 border-rose-100 p-2 flex items-center overflow-hidden">
-            <button onClick={() => setIsPlaying(!isPlaying)} className={clsx("w-12 h-12 rounded-full flex items-center justify-center shrink-0 transition-colors", isPlaying ? "bg-rose-500 text-white animate-spin-slow" : "bg-slate-100 text-slate-600")}>
-              {isPlaying ? <Pause size={20} fill="white" /> : <Play size={20} fill="currentColor ml-1" />}
-            </button>
+            <button onClick={() => setIsPlaying(!isPlaying)} className={clsx("w-12 h-12 rounded-full flex items-center justify-center shrink-0 transition-colors", isPlaying ? "bg-rose-500 text-white animate-spin-slow" : "bg-slate-100 text-slate-600")}>{isPlaying ? <Pause size={20} fill="white" /> : <Play size={20} fill="currentColor ml-1" />}</button>
             {isPlaying && (
               <div className="flex items-center gap-4 px-4 pr-6">
                 <div className="flex flex-col min-w-[120px] md:min-w-[200px]">
@@ -449,9 +241,7 @@ export default function UltimateApology() {
             <motion.div className="fixed top-6 right-6 md:top-12 md:right-12 z-50 cursor-pointer" onClick={() => setShowTease(true)} initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} whileHover={{ scale: 1.1, rotate: 5 }} whileTap={{ scale: 0.9 }}>
               <div className="relative group">
                 <div className="absolute inset-0 bg-amber-400 rounded-full blur-xl opacity-30 animate-pulse" />
-                <div className="relative w-20 h-20 md:w-24 md:h-24 bg-gradient-to-b from-teal-900 to-slate-900 rounded-full border-4 border-amber-400 shadow-2xl flex items-center justify-center overflow-hidden">
-                  <PeacockFeatherIcon className="w-16 h-16 md:w-20 md:h-20 drop-shadow-lg" />
-                </div>
+                <div className="relative w-20 h-20 md:w-24 md:h-24 bg-gradient-to-b from-teal-900 to-slate-900 rounded-full border-4 border-amber-400 shadow-2xl flex items-center justify-center overflow-hidden"><PeacockFeatherIcon className="w-16 h-16 md:w-20 md:h-20 drop-shadow-lg" /></div>
                 <div className="absolute top-24 left-1/2 -translate-x-1/2 bg-white px-3 py-1 rounded-full text-xs font-bold text-teal-900 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Open My Heart</div>
               </div>
             </motion.div>
