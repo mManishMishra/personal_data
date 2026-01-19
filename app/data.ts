@@ -95,6 +95,12 @@ export const TIMELINE_DATA = {
         songSuggestion: "Iktara" // Fits the 'Free Spirit' vibe perfectly
       },
       {
+        title: "Those Eyes!  That Spoke a Thousand Words",
+        img: "/eyes.png", // Make sure to generate this!
+        text: "Around end of Class 8. I used to go to another column just to look at you all day !, both on the first bench of our rows. While the world studied, we lived a lifetime in glances. I'd look over, hoping to catch a glimpse, only to find you already looking at me.Over the years,  we got caught, we got scolded, but we never stopped. In a noisy class, our eyes spoke the loudest. I could spend eternity just sitting there, staring into those beautiful eyes.",
+        songSuggestion: "Ishq Bulaava" 
+      },
+      {
         title: "Class 10: The Secret", 
         img: "/the_secret.jpg", // Use the image you want to blur
         text: "The year everything changed. The year you proposed. I was already in love with you from the moment I saw you in Class 6, but hearing you say it... it was the best memory of my entire life. My Forever Dream ..... (Story coming soon...)",
