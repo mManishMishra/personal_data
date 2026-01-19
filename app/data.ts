@@ -109,8 +109,8 @@ export const TIMELINE_DATA = {
       {
         title: "The Genius and Her Knight",
         img: "/quiz.png", // Generate this with Prompt 2
-        text: "You were the center of everything. Remember solo-carrying us in that Quiz against 9B? You were brilliant. I was just the geeky knight protecting his queen—crushing that guy in Chess because he spoke bad about you, getting jealous of anyone who got too close.We played different games from kabbadi to cricket ! We won games, we lost some, but to me, you were always the victory.",
-        songSuggestion: "Tera Yaar Hoon Main" 
+text: "You were the star of the Quiz, solo-carrying our class to victory. But while you were shining on stage, I was fighting in the shadows. I was the jealous Knight guarding his Queen. If any guy dared to get 'sneaky' or tried to flirt with you, I made sure they backed off—permanently. I hated anyone else getting close to you. I crushed that guy in Chess not just to win, but because he dared to speak about you. We played many games, but protecting you was my only real victory.",
+        songSuggestion: "Tera Yaar Hoon Main"
       },
       {
         title: "The Independence Day Apsara",
