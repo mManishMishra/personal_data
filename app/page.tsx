@@ -168,18 +168,55 @@ export default function UltimateApology() {
                         <div className="text-xs font-bold text-teal-600 uppercase tracking-widest flex items-center gap-2">Chapter {storyIndex + 1} of {TIMELINE_DATA[activeEra].chapters.length}</div>
                         <div className="flex items-center gap-1 text-[10px] text-rose-500 font-bold bg-rose-50 px-2 py-1 rounded-full border border-rose-200"><Music2 size={10} /> Vibe: {currentChapter.songSuggestion}</div>
                     </div>
-                    <div className="w-full aspect-video relative mb-6 rounded-xl overflow-hidden shadow-lg bg-teal-50 border-4 border-white">
-                        <AnimatePresence mode="wait">
-                            <motion.div key={`${activeEra}-${storyIndex}`} initial={{ opacity: 0, scale: 1.1 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.5 }} className="absolute inset-0">
-                                <Image src={currentChapter.img} alt={currentChapter.title} fill className={clsx("object-cover", (currentChapter as any).isLocked && "blur-sm opacity-50")} />
-                                {(currentChapter as any).isLocked && (<div className="absolute inset-0 flex items-center justify-center"><div className="bg-white/80 p-4 rounded-full shadow-xl"><Lock size={32} className="text-teal-900" /></div></div>)}
-                            </motion.div>
-                        </AnimatePresence>
-                    </div>
-                    <motion.div key={`txt-${activeEra}-${storyIndex}`} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.5 }}>
-                      <h2 className="text-2xl md:text-3xl font-serif text-teal-950 mb-4">{currentChapter.title}</h2>
-                      <p className="text-base md:text-lg text-slate-700 leading-relaxed font-light">{currentChapter.text}</p>
-                    </motion.div>
+{/* DYNAMIC IMAGE AREA */}
+<div className="w-full aspect-video relative mb-6 rounded-xl overflow-hidden shadow-lg bg-teal-50 border-4 border-white">
+    <AnimatePresence mode="wait">
+        <motion.div
+            key={`${activeEra}-${storyIndex}`}
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="absolute inset-0"
+        >
+            <Image
+                src={currentChapter.img}
+                alt={currentChapter.title}
+                fill
+                className={clsx("object-cover", (currentChapter as any).isLocked && "blur-sm opacity-100")} // Increased blur
+            />
+            {(currentChapter as any).isLocked && (
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/20 backdrop-blur-sm"> {/* Added overlay for better text contrast */}
+                <div className="bg-white/90 p-4 rounded-full shadow-xl mb-4">
+                  <Lock size={32} className="text-teal-900" />
+                </div>
+                <p className="text-white font-bold text-lg drop-shadow-md">Memory Locked</p>
+              </div>
+            )}
+        </motion.div>
+    </AnimatePresence>
+</div>
+
+{/* TEXT CONTENT */}
+<motion.div
+  key={`txt-${activeEra}-${storyIndex}`}
+  initial={{ opacity: 0, y: 10 }}
+  animate={{ opacity: 1, y: 0 }}
+  exit={{ opacity: 0, y: -10 }}
+  transition={{ duration: 0.5 }}
+>
+  <h2 className="text-2xl md:text-3xl font-serif text-teal-950 mb-4">{currentChapter.title}</h2>
+  
+  {/* Check if locked */}
+  {(currentChapter as any).isLocked ? (
+      <p className="text-base md:text-lg text-slate-500 italic text-center py-8">
+          {(currentChapter as any).lockedMessage || "This chapter of our story is yet to be written..."}
+      </p>
+  ) : (
+      <p className="text-base md:text-lg text-slate-700 leading-relaxed font-light">{currentChapter.text}</p>
+  )}
+</motion.div>
+
                     <div className="flex gap-4 mt-8 pt-6 border-t border-amber-100">
                       <button onClick={() => setStoryIndex(i => Math.max(0, i - 1))} disabled={storyIndex === 0} className="px-4 py-2 rounded-full border border-teal-200 text-teal-700 disabled:opacity-30 hover:bg-teal-50 flex items-center gap-2 transition-all"><ArrowLeft size={16} /> Prev</button>
                       <button onClick={() => setStoryIndex(i => Math.min(TIMELINE_DATA[activeEra].chapters.length - 1, i + 1))} disabled={storyIndex === TIMELINE_DATA[activeEra].chapters.length - 1} className="px-6 py-2 rounded-full bg-teal-800 text-white disabled:opacity-50 disabled:bg-slate-400 hover:bg-teal-900 flex items-center gap-2 shadow-lg transition-all ml-auto">Next Chapter <ArrowRight size={16} /></button>

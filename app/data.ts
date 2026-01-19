@@ -95,11 +95,12 @@ export const TIMELINE_DATA = {
         songSuggestion: "Iktara" // Fits the 'Free Spirit' vibe perfectly
       },
       {
-        title: "Class 10: The Secret",
-        img: "/the_secret.jpg",
+        title: "Class 10: The Secret", 
+        img: "/the_secret.jpg", // Use the image you want to blur
         text: "The year everything changed. The year you proposed. I was already in love with you from the moment I saw you in Class 6, but hearing you say it... it was the best memory of my entire life. My Forever Dream ..... (Story coming soon...)",
         songSuggestion: "Raabta",
-        isLocked: true 
+        isLocked: true,
+        lockedMessage: "A memory too precious to reveal just yet... Coming soon. ❤️" 
       }
     ]
   },
