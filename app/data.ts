@@ -55,7 +55,7 @@ export const TIMELINE_DATA = {
       {
         title: "The Front Bench War",
         img: "/our_fight.png",
-        text: "In Class 7, you sat right in front of me. We were friends now, but you had a crush on someone else. It made me so jealous! I used to steal your copies & files just to hold something of yours. And remember that guy who shoulder-rubbed you? I fought him. Because even if you liked someone else, I was the one protecting you.",
+        text: "In Class 7, you sat right in front of me. We were friends now, but you had a crush on someone else. It made me so jealous! I used to steal your copies & files just to hold something of yours. And remember that guy who shoulder-rubbed you? I fought him. Because even if you liked someone else, I was the one protecting you.Over the years i stole many things from you to keep with me forever. Your notes, your files, your books,your pen Everything except that heart !.",
         songSuggestion: "Tum Se Hi"
       },
        {
@@ -99,6 +99,24 @@ export const TIMELINE_DATA = {
         img: "/eyes.png", // Make sure to generate this!
         text: "Around end of Class 8. I used to go to another column just to look at you all day !, both on the first bench of our rows. While the world studied, we lived a lifetime in glances. I'd look over, hoping to catch a glimpse, only to find you already looking at me.Over the years,  we got caught, we got scolded, but we never stopped. In a noisy class, our eyes spoke the loudest. I could spend eternity just sitting there, staring into those beautiful eyes.",
         songSuggestion: "Ishq Bulaava" 
+      },
+      {
+        title: "The Captain & The Chaos",
+        img: "/class_monitor.png", // Generate this with Prompt 1
+        text: "Class 9 brought us closer. You were the Class Monitor, the Blue House Captain—my Queen. You’d drag me into random chaos, and I’d follow your command, nervous but thrilled. And those 'Shoe Fights'? God, the tension was electric. We were playful, competitive, and dangerously close. I still dream of those moments; sometimes I feel the phantom pain of your shoe, but mostly, I feel the flutter of my heart.",
+        songSuggestion: "Koi Kahe Kehta Rahe" 
+      },
+      {
+        title: "The Genius and Her Knight",
+        img: "/quiz.png", // Generate this with Prompt 2
+        text: "You were the center of everything. Remember solo-carrying us in that Quiz against 9B? You were brilliant. I was just the geeky knight protecting his queen—crushing that guy in Chess because he spoke bad about you, getting jealous of anyone who got too close.We played different games from kabbadi to cricket ! We won games, we lost some, but to me, you were always the victory.",
+        songSuggestion: "Tera Yaar Hoon Main" 
+      },
+      {
+        title: "The Independence Day Apsara",
+        img: "/the_apsara.png", // Make sure to generate this!
+        text: "August 15th the day to wait for . You always participated in the dance. I remember it vividly—open hair, that striking black bindi... God, you looked like an Apsara, a Hoor from heaven. You were always fun, but that day your aura used to be so powerful I used to literally forgot how to speak. I used to sneak around just to catch one secret glimpse of you. You always looked timeless.",
+        songSuggestion: "Afreen Afreen" // Perfect for 'Apsara/Beauty'
       },
       {
         title: "Class 10: The Secret", 

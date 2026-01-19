@@ -54,7 +54,7 @@ const KrishnaFlute = ({ className }: { className?: string }) => (
 
 // Sidebar Menu Items - Cleaned up to match new structure
 const MENU_ITEMS = [
-  { id: "our_story", title: "Our Timeline", date: "The Journey", icon: <Library size={16} />, isStory: true },
+  { id: "our_story", title: "Memory Lane", date: "The Journey", icon: <Library size={16} />, isStory: true },
   { id: "ghibli_pic", title: "A Glimpse of Forever", date: "Dream", icon: <Sparkles size={16} />, isImage: true },
   { id: "slap_protocol", title: "The 'Blue House Captain'", date: "The Fix", icon: <Hand size={16} />, isInteractive: true },
 ];
@@ -169,8 +169,11 @@ export default function UltimateApology() {
                         <div className="flex items-center gap-1 text-[10px] text-rose-500 font-bold bg-rose-50 px-2 py-1 rounded-full border border-rose-200"><Music2 size={10} /> Vibe: {currentChapter.songSuggestion}</div>
                     </div>
 {/* DYNAMIC IMAGE AREA */}
-<div className="w-full aspect-video relative mb-6 rounded-xl overflow-hidden shadow-lg bg-teal-50 border-4 border-white">
-    <AnimatePresence mode="wait">
+<div className={clsx(
+  "w-full relative mb-6 rounded-xl overflow-hidden shadow-lg bg-teal-50 border-4 border-white",
+  // If it's the split-screen image, use a taller aspect ratio (3:4)
+  currentChapter.title === "The Genius and Her Knight" ? "aspect-[3/4]" : "aspect-video"
+)}>    <AnimatePresence mode="wait">
         <motion.div
             key={`${activeEra}-${storyIndex}`}
             initial={{ opacity: 0, scale: 1.1 }}
