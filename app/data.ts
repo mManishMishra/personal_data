@@ -2,15 +2,16 @@ import { BookOpen, Phone, Sparkles, Heart, Gift } from "lucide-react";
 
 // --- BLUSH MESSAGES ---
 export const BLUSH_MESSAGES = [
-  "Happy Birthday to me? No, Happy Birthday to US. ❤️",
-  "The best gift I got today was your call.",
-  "I'm smiling just because you're here checking this.",
-  "Did you know your voice is my favorite sound?",
-  "You waited 27 minutes... that means the world to me.",
-  "My wish came true the moment you called.",
-  "Warning: Birthday Boy is obsessed with you.",
-  "Checking the diary? I knew you missed me.",
-  "You are my permanent birthday wish."
+  "You waited 27 minutes just to hear my voice... that courage makes my heart race.",
+  "Admit it, you're here because you missed me. (I missed you too).",
+  "Just a reminder: Your voice is the only melody my heart beats to.",
+  "Still crushing on the Blue House Captain. Some things never change. ❤️",
+  "That 27-minute wait wasn't just a call. It was the best gift.",
+  "I was the shy boy, you were the bold girl. We were perfect.",
+  "Checking our diary? I bet you're smiling right now. 😉",
+  "You made a railway waiting room feel like home just by calling me.",
+  "I love it when you try to be tough, but I know you're soft for me.",
+  "My day gets 100% better the second I hear you speak."
 ];
 
 // --- PLAYLIST ---
@@ -36,26 +37,32 @@ export const TIMELINE_DATA = {
       {
         title: "The New Girl",
         img: "/new_girl.png", 
-        text: "It was Class 6. I had just transferred to the new branch. Then, you walked in late. You took the first bench, right row, right side, sitting next to Shobha. I stopped looking at the board. I was just looking at you. A teacher even scolded me for staring! That was the beginning.",
+        text: "It was Class 6. I had just transferred to the new branch. Then, you walked in late. You took the first bench, right row, right side, sitting next to Shobha and another girl. I stopped looking at the board. I was just looking at you. A teacher even scolded me for staring! That was the beginning.",
         songSuggestion: "Pehla Nasha"
       },
       {
-        title: "The Unattainable Star",
-        img: "/kho_kho.png",
-        text: "You were the Topper. You didn't even seem to try hard, yet you were brilliant. You were confident, great at Kho-Kho, and fearless. I was just a boy admiring you from a distance. Truth be told? Everyone had a crush on you.",
-        songSuggestion: "Fairytale"
+        title: "The Khaki Shorts Crisis",
+        img: "/emb.png",
+        text: "I was so intimidated by how cool you were that my own uniform embarrassed me. I hated wearing those khaki shorts in front of you. I literally went on strike at home! I told my mom: 'I am NOT going to school until I get full pants!' just so I could look like a gentleman for you.",
+        songSuggestion: "Perfect"
       },
-      {
+       {
         title: "The Front Desk War",
         img: "/front_desk_fight.png", 
         text: "Class 7, Day 2. We fought for that front row desk like it was a kingdom. To the world, it was an argument. But to me? It was intentional. I fought just to be close to you, to feel your presence, to accidentally brush shoulders. I was madly in love and this was my way of touching your world. A friend had to pull us apart, and I 'surrendered' the seat to you. Losing to you was my favorite victory.",
         songSuggestion: "Kuch Kuch Hota Hai" 
       },
       {
-        title: "The Introvert's Dilemma",
-        img: "/doorway_block.png", // Make sure to generate this!
-        text: "I was the shy introvert; you were the bold extrovert. You used to stand right at the classroom door, blocking my path on purpose. You looked ready to fight, so I would nervously run to the other door just to avoid you! I was terrified and shy. Years later, you told me the truth: you just thought I was cute and wanted to make me talk. If only my nervous heart knew that back then...",
-        songSuggestion: "Chori Chori Chupke Chupke" 
+        title: "The Front Bench War",
+        img: "/our_fight.png",
+        text: "In Class 7, you sat right in front of me. We were friends now, but you had a crush on someone else. It made me so jealous! I used to steal your copies & files just to hold something of yours. And remember that guy who shoulder-rubbed you? I fought him. Because even if you liked someone else, I was the one protecting you.",
+        songSuggestion: "Tum Se Hi"
+      },
+       {
+        title: "The Unattainable Star",
+        img: "/kho_kho.png",
+        text: "You were the Topper. You didn't even seem to try hard, yet you were brilliant. You were confident, great at Kho-Kho, and fearless. I was just a boy admiring you from a distance. Truth be told? Everyone had a crush on you.",
+        songSuggestion: "Fairytale"
       },
       {
         title: "Card Cricket Wars",
@@ -64,22 +71,28 @@ export const TIMELINE_DATA = {
         songSuggestion: "Tera Hone Laga Hoon"
       },
       {
-        title: "The Khaki Shorts Crisis",
-        img: "/emb.png",
-        text: "I was so intimidated by how cool you were that my own uniform embarrassed me. I hated wearing those khaki shorts in front of you. I literally went on strike at home! I told my mom: 'I am NOT going to school until I get full pants!' just so I could look like a gentleman for you.",
-        songSuggestion: "Perfect"
-      },
-      {
-        title: "The Front Bench War",
-        img: "/our_fight.png",
-        text: "In Class 7, you sat right in front of me. We were friends now, but you had a crush on someone else. It made me so jealous! I used to steal your copies & files just to hold something of yours. And remember that guy who shoulder-rubbed you? I fought him. Because even if you liked someone else, I was the one protecting you.",
-        songSuggestion: "Tum Se Hi"
+        title: "The Introvert's Dilemma",
+        img: "/doorway_block.png", 
+        text: "You used to stand right at the classroom door, intentionally blocking my path because you knew I'd try to avoid you. Part of me wanted to break free, to playfully fight my way in... but I just froze. I was completely flabbergasted. You were my absolute dream, and just being near you made me blush uncontrollably. I was too shy to fight, so I just melted.",
+        songSuggestion: "Chori Chori Chupke Chupke" 
       },
       {
         title: "The Kabaddi Miracle",
         img: "/hug.png",
         text: "My heart remembers this clearly. Sunny afternoon, end of corridor. You were playing Kabaddi and ran into me. For a moment, everything stopped. I held you. My favorite hug! I want you to run to me again, and this time, I will catch you and never let you go.",
         songSuggestion: "Apna Bana Le"
+      },
+      {
+        title: "The Morning Drag",
+        img: "/assembly.png", // Generate this!
+        text: "Class 8. Morning assembly was my nightmare—I was terrified of messing up. But for you? It was a stage. You would literally drag me there! I was trembling inside, asking 'What if I mess up?', but you were buzzing with excitement. You didn't just pull me to the ground; you pulled me out of my shell every single morning.",
+        songSuggestion: "Kuch Toh Hua Hai" 
+      },
+      {
+        title: "The Anthem & The Free Spirit",
+        img: "/anthem.png", // Generate this!
+        text: "The teacher assigned you to lead the assembly. You handled everything like a queen, a total free spirit effortlessly managing the crowd. I stood next to you for the National Anthem, a nervous wreck vs. your effortless grace. I wasn't just singing; I was watching you in awe, wondering how anyone could be so perfect and fearless.",
+        songSuggestion: "Iktara" // Fits the 'Free Spirit' vibe perfectly
       },
       {
         title: "Class 10: The Secret",

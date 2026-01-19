@@ -192,7 +192,10 @@ export default function UltimateApology() {
                       <div className="aspect-square w-full bg-teal-100 relative overflow-hidden mb-2"><Image src="/us.png" alt="Us" width={400} height={400} className="object-cover w-full h-full"/></div>
                       <div className="text-center font-handwriting text-slate-600 font-bold text-xl mt-4" style={{ fontFamily: 'cursive' }}>Me & You (In my dreams) ❤️</div>
                     </motion.div>
-                    <p className="mt-8 text-center text-teal-800/60 text-sm italic">"Remember when you hopped on my bus just to see my village? <br/> That was the moment I knew."</p>
+                    <p className="mt-8 text-center text-teal-800/60 text-sm italic">
+                      "It wasn't a specific moment. The second I saw you enter our class, I felt a premonition.<br/> 
+                      My soul recognized you before I even knew your name."
+                    </p>
                   </div>
                 ) : activeMessage.isInteractive ? (
                   // SLAP MODE
