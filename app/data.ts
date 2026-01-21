@@ -2,16 +2,15 @@ import { BookOpen, Phone, Sparkles, Heart, Gift } from "lucide-react";
 
 // --- BLUSH MESSAGES ---
 export const BLUSH_MESSAGES = [
-  "You waited 27 minutes just to hear my voice... that courage makes my heart race.",
+  "You waited 27 minutes just to let me hear your voice... that courage makes my heart race.",
   "Admit it, you're here because you missed me. (I missed you too).",
   "Just a reminder: Your voice is the only melody my heart beats to.",
   "Still crushing on the Blue House Captain. Some things never change. ❤️",
   "That 27-minute wait wasn't just a call. It was the best gift.",
   "I was the shy boy, you were the bold girl. We were perfect.",
   "Checking our diary? I bet you're smiling right now. 😉",
-  "You made a railway waiting room feel like home just by calling me.",
   "I love it when you try to be tough, but I know you're soft for me.",
-  "My day gets 100% better the second I hear you speak."
+  "My day gets 100% better the second I hear you speak. Maybe a good morning voice note daily?",
 ];
 
 // --- PLAYLIST ---
