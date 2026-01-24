@@ -1,23 +1,21 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"; 
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   BookOpen, Heart, Pause, Play, Hand, Library, ArrowRight, ArrowLeft, 
-  MessageCircleHeart, Music2, Gift, Sparkles, Clock, Lock, Phone,
-  AlertTriangle,
-  SkipBack,
-  SkipForward,
-  X
+  MessageCircleHeart, Music2, Sparkles, Lock, Phone,
+  AlertTriangle, SkipBack, SkipForward, X,
+  AlignLeft, ChevronDown, ChevronUp, Feather 
 } from "lucide-react";
 import clsx from "clsx";
 import Image from "next/image";
 
 // Import Data and Components
-import { BLUSH_MESSAGES, PLAYLIST, TIMELINE_DATA } from "./data";
+import { BLUSH_MESSAGES, PLAYLIST, TIMELINE_DATA, MUSHAIRA_DATA } from "./data";
 import { FallingPetals } from "./components/FallingPetals"; 
 
-// --- SVG COMPONENTS ---
+// ... (SVG Components: PeacockFeatherIcon, KrishnaFlute remain same) ...
 const PeacockFeatherIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 100 150" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
     <path d="M50 140 Q50 80 50 10" stroke="#d97706" strokeWidth="2" strokeLinecap="round" />
@@ -52,7 +50,6 @@ const KrishnaFlute = ({ className }: { className?: string }) => (
   </svg>
 );
 
-// Sidebar Menu Items - Cleaned up to match new structure
 const MENU_ITEMS = [
   { id: "our_story", title: "Memory Lane", date: "The Journey", icon: <Library size={16} />, isStory: true },
   { id: "ghibli_pic", title: "A Glimpse of Forever", date: "Dream", icon: <Sparkles size={16} />, isImage: true },
@@ -73,11 +70,19 @@ export default function UltimateApology() {
   const [slapCount, setSlapCount] = useState(0);
   const [isShaking, setIsShaking] = useState(false);
   
-  // Story State
   const [activeEra, setActiveEra] = useState<"school" | "reconnection" | "present">("school");
   const [storyIndex, setStoryIndex] = useState(0);
 
+  // Mushaira States
+  const [expandedShayari, setExpandedShayari] = useState<string | null>(null);
+  const [showPoetryList, setShowPoetryList] = useState(false); // Main toggle for list
+
   const activeMessage = MENU_ITEMS.find((m) => m.id === selectedId);
+  const currentChapter = TIMELINE_DATA[activeEra].chapters[storyIndex];
+
+  const toggleAccordion = (id: string) => {
+    setExpandedShayari(prev => prev === id ? null : id);
+  };
 
   useEffect(() => {
     const storedCount = localStorage.getItem("visitCount");
@@ -108,7 +113,6 @@ export default function UltimateApology() {
     setIsPlaying(true);
   };
 
-  const currentChapter = TIMELINE_DATA[activeEra].chapters[storyIndex];
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-[#FFF8E1] via-[#E0F2F1] to-[#E0F7FA] text-slate-800 font-sans overflow-hidden flex flex-col md:flex-row relative">
@@ -151,91 +155,170 @@ export default function UltimateApology() {
             <motion.div key={activeMessage.id} animate={isShaking ? { x: [-10, 10, -10, 10, 0], rotate: [-2, 2, -2, 2, 0] } : { opacity: 1, y: 0 }} initial={{ opacity: 0, y: 20 }} exit={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }} transition={{ duration: 0.8 }} className="relative w-full max-w-2xl z-10 pb-32 md:pb-0">
               <motion.div initial={{ y: -10, opacity: 0 }} animate={{ y: [0, -10, 0], opacity: 1 }} transition={{ repeat: Infinity, duration: 4 }} className="absolute -top-12 left-1/2 -translate-x-1/2 z-0"><KrishnaFlute className="w-48 h-16 drop-shadow-lg opacity-80" /></motion.div>
 
-              <div className="bg-white/70 backdrop-blur-xl p-8 md:p-14 rounded-[2rem] shadow-[0_10px_40px_-10px_rgba(13,148,136,0.2)] border border-white relative overflow-hidden min-h-[550px] flex flex-col justify-center">
-                <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-amber-400 via-teal-500 to-blue-600" />
+              <div className="bg-white/70 backdrop-blur-xl p-6 md:p-12 rounded-[2rem] shadow-[0_10px_40px_-10px_rgba(13,148,136,0.2)] border border-white relative overflow-hidden min-h-[600px] flex flex-col">
+                <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-amber-400 via-teal-500 to-blue-600 z-10" />
                 
                 {activeMessage.isStory ? (
                   // STORY MODE
                   <div className="relative flex flex-col h-full">
-                    <div className="flex gap-2 mb-6 overflow-x-auto pb-2 no-scrollbar">
+                    {/* Timeline Navigation */}
+                    <div className="flex gap-2 mb-6 overflow-x-auto pb-2 no-scrollbar shrink-0">
                       {Object.entries(TIMELINE_DATA).map(([key, data]) => (
                         <button key={key} onClick={() => { setActiveEra(key as any); setStoryIndex(0); }} className={clsx("px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-2 whitespace-nowrap transition-all", activeEra === key ? "bg-teal-800 text-white shadow-md" : "bg-teal-50 text-teal-600 border border-teal-100 hover:bg-teal-100")}>
                           {key === "school" ? <BookOpen size={14} /> : key === "reconnection" ? <Phone size={14} /> : <Sparkles size={14} />} {data.label}
                         </button>
                       ))}
                     </div>
-                    <div className="flex justify-between items-center mb-4">
-                        <div className="text-xs font-bold text-teal-600 uppercase tracking-widest flex items-center gap-2">Chapter {storyIndex + 1} of {TIMELINE_DATA[activeEra].chapters.length}</div>
-                        <div className="flex items-center gap-1 text-[10px] text-rose-500 font-bold bg-rose-50 px-2 py-1 rounded-full border border-rose-200"><Music2 size={10} /> Vibe: {currentChapter.songSuggestion}</div>
+
+                    {/* Chapter Header */}
+                    {!(currentChapter as any).isMushaira && (
+                        <div className="flex justify-between items-center mb-4 shrink-0">
+                            <div className="text-xs font-bold text-teal-600 uppercase tracking-widest flex items-center gap-2">Chapter {storyIndex + 1} of {TIMELINE_DATA[activeEra].chapters.length}</div>
+                            <div className="flex items-center gap-1 text-[10px] text-rose-500 font-bold bg-rose-50 px-2 py-1 rounded-full border border-rose-200"><Music2 size={10} /> Vibe: {currentChapter.songSuggestion}</div>
+                        </div>
+                    )}
+                    
+                    {/* === CONTENT AREA === */}
+                    <div className="flex-1 relative flex flex-col">
+                        <AnimatePresence mode="wait">
+                            {(currentChapter as any).isMushaira ? (
+                                // === MUSHAIRA VIEWER ===
+                                <motion.div
+                                    key="mushaira-player"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    className="flex flex-col h-full overflow-y-auto custom-scrollbar"
+                                >
+                                    {/* 1. Header Image (Large) */}
+                                    <div className="relative w-full aspect-video shrink-0 rounded-xl overflow-hidden shadow-lg border-2 border-white mb-6">
+                                        <Image src={currentChapter.img} alt="Mushaira" fill className="object-cover" />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-teal-900/80 via-transparent to-transparent flex items-end p-4">
+                                            <h3 className="text-white font-serif text-2xl drop-shadow-lg">The Allahabad Mushaira</h3>
+                                        </div>
+                                    </div>
+
+                                    {/* 2. Story Text */}
+                                    <div className="mb-8 px-2">
+                                        <p className="text-lg text-slate-700 leading-relaxed font-light">{currentChapter.text}</p>
+                                    </div>
+
+                                    {/* 3. Expandable Collection */}
+                                    <div className="border-t border-teal-100 pt-4">
+                                        <button 
+                                            onClick={() => setShowPoetryList(!showPoetryList)}
+                                            className="w-full py-4 bg-teal-50 hover:bg-teal-100 rounded-xl flex items-center justify-between px-6 transition-colors group mb-4"
+                                        >
+                                            <div className="flex items-center gap-3">
+                                                <Feather className="text-teal-600" />
+                                                <span className="font-serif font-bold text-teal-900">✨ Open The Poetry Collection</span>
+                                            </div>
+                                            <ChevronDown className={clsx("text-teal-400 transition-transform duration-300", showPoetryList ? "rotate-180" : "")} />
+                                        </button>
+
+                                        <AnimatePresence>
+                                            {showPoetryList && (
+                                                <motion.div 
+                                                    initial={{ height: 0, opacity: 0 }}
+                                                    animate={{ height: "auto", opacity: 1 }}
+                                                    exit={{ height: 0, opacity: 0 }}
+                                                    className="space-y-3 overflow-hidden"
+                                                >
+                                                    {MUSHAIRA_DATA.map((item) => {
+                                                        const isExpanded = expandedShayari === item.id;
+                                                        return (
+                                                            <motion.div 
+                                                                key={item.id} 
+                                                                layout
+                                                                className={clsx(
+                                                                    "bg-white rounded-lg border shadow-sm transition-all overflow-hidden",
+                                                                    isExpanded ? "border-teal-300 shadow-md" : "border-teal-100"
+                                                                )}
+                                                            >
+                                                                <div 
+                                                                    onClick={() => toggleAccordion(item.id)}
+                                                                    className="flex items-center gap-3 p-3 cursor-pointer hover:bg-teal-50/50 transition-colors"
+                                                                >
+                                                                    <div className={clsx("shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all border", isExpanded ? "bg-teal-600 text-white" : "bg-white text-teal-600")}>
+                                                                        <AlignLeft size={14} />
+                                                                    </div>
+                                                                    <div className="flex-1 min-w-0">
+                                                                        <h4 className={clsx("text-sm font-bold uppercase tracking-wide truncate", isExpanded ? "text-teal-900" : "text-slate-700")}>{item.title}</h4>
+                                                                    </div>
+                                                                    {isExpanded ? <ChevronUp size={16} className="text-teal-400"/> : <ChevronDown size={16} className="text-slate-300"/>}
+                                                                </div>
+
+                                                                <AnimatePresence>
+                                                                    {isExpanded && (
+                                                                        <motion.div initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} className="overflow-hidden">
+                                                                            <div className="p-4 pt-0 border-t border-dashed border-teal-100 bg-teal-50/30">
+                                                                                <p className="text-sm md:text-base leading-loose whitespace-pre-line font-serif italic text-slate-700 mt-3">"{item.text}"</p>
+                                                                            </div>
+                                                                        </motion.div>
+                                                                    )}
+                                                                </AnimatePresence>
+                                                            </motion.div>
+                                                        );
+                                                    })}
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
+                                </motion.div>
+                            ) : (
+                                // === STANDARD STORY LAYOUT ===
+                                <motion.div
+                                    key={`${activeEra}-${storyIndex}-standard`}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="flex flex-col h-full"
+                                >
+                                    <div className={clsx(
+                                        "w-full relative rounded-xl overflow-hidden shadow-lg bg-teal-50 border-4 border-white mb-6 shrink-0",
+                                        currentChapter.title === "The Knight & The Genius" ? "aspect-[3/4]" : "aspect-video"
+                                    )}>
+                                        <Image
+                                            src={currentChapter.img}
+                                            alt={currentChapter.title}
+                                            fill
+                                            className={clsx("object-cover", (currentChapter as any).isLocked && "blur-sm opacity-100")}
+                                        />
+                                        {(currentChapter as any).isLocked && (
+                                            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/20 backdrop-blur-sm">
+                                                <div className="bg-white/90 p-4 rounded-full shadow-xl mb-4"><Lock size={32} className="text-teal-900" /></div>
+                                                <p className="text-white font-bold text-lg drop-shadow-md">Memory Locked</p>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <div className="flex-1 overflow-y-auto custom-scrollbar pr-2">
+                                        <h2 className="text-2xl md:text-3xl font-serif text-teal-950 mb-4">{currentChapter.title}</h2>
+                                        {(currentChapter as any).isLocked ? (
+                                            <p className="text-base md:text-lg text-slate-500 italic text-center py-8">{(currentChapter as any).lockedMessage || "This chapter of our story is yet to be written..."}</p>
+                                        ) : (
+                                            <p className="text-base md:text-lg text-slate-700 leading-relaxed font-light">{currentChapter.text}</p>
+                                        )}
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
-{/* DYNAMIC IMAGE AREA */}
-<div className={clsx(
-  "w-full relative mb-6 rounded-xl overflow-hidden shadow-lg bg-teal-50 border-4 border-white",
-  // If it's the split-screen image, use a taller aspect ratio (3:4)
-  currentChapter.title === "The Genius and Her Knight" ? "aspect-[3/4]" : "aspect-video"
-)}>    <AnimatePresence mode="wait">
-        <motion.div
-            key={`${activeEra}-${storyIndex}`}
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="absolute inset-0"
-        >
-            <Image
-                src={currentChapter.img}
-                alt={currentChapter.title}
-                fill
-                className={clsx("object-cover", (currentChapter as any).isLocked && "blur-sm opacity-100")} // Increased blur
-            />
-            {(currentChapter as any).isLocked && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/20 backdrop-blur-sm"> {/* Added overlay for better text contrast */}
-                <div className="bg-white/90 p-4 rounded-full shadow-xl mb-4">
-                  <Lock size={32} className="text-teal-900" />
-                </div>
-                <p className="text-white font-bold text-lg drop-shadow-md">Memory Locked</p>
-              </div>
-            )}
-        </motion.div>
-    </AnimatePresence>
-</div>
 
-{/* TEXT CONTENT */}
-<motion.div
-  key={`txt-${activeEra}-${storyIndex}`}
-  initial={{ opacity: 0, y: 10 }}
-  animate={{ opacity: 1, y: 0 }}
-  exit={{ opacity: 0, y: -10 }}
-  transition={{ duration: 0.5 }}
->
-  <h2 className="text-2xl md:text-3xl font-serif text-teal-950 mb-4">{currentChapter.title}</h2>
-  
-  {/* Check if locked */}
-  {(currentChapter as any).isLocked ? (
-      <p className="text-base md:text-lg text-slate-500 italic text-center py-8">
-          {(currentChapter as any).lockedMessage || "This chapter of our story is yet to be written..."}
-      </p>
-  ) : (
-      <p className="text-base md:text-lg text-slate-700 leading-relaxed font-light">{currentChapter.text}</p>
-  )}
-</motion.div>
-
-                    <div className="flex gap-4 mt-8 pt-6 border-t border-amber-100">
+                    <div className="flex gap-4 mt-6 pt-6 border-t border-amber-100 shrink-0">
                       <button onClick={() => setStoryIndex(i => Math.max(0, i - 1))} disabled={storyIndex === 0} className="px-4 py-2 rounded-full border border-teal-200 text-teal-700 disabled:opacity-30 hover:bg-teal-50 flex items-center gap-2 transition-all"><ArrowLeft size={16} /> Prev</button>
                       <button onClick={() => setStoryIndex(i => Math.min(TIMELINE_DATA[activeEra].chapters.length - 1, i + 1))} disabled={storyIndex === TIMELINE_DATA[activeEra].chapters.length - 1} className="px-6 py-2 rounded-full bg-teal-800 text-white disabled:opacity-50 disabled:bg-slate-400 hover:bg-teal-900 flex items-center gap-2 shadow-lg transition-all ml-auto">Next Chapter <ArrowRight size={16} /></button>
                     </div>
                   </div>
-                ) : activeMessage.isImage ? (
+                ): activeMessage.isImage ? (
                   // IMAGE MODE
                   <div className="flex flex-col items-center justify-center">
                     <motion.div initial={{ scale: 0.8, rotate: -5, opacity: 0 }} animate={{ scale: 1, rotate: 0, opacity: 1 }} transition={{ type: "spring", duration: 1.5 }} className="bg-white p-4 pb-12 shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500 max-w-sm">
                       <div className="aspect-square w-full bg-teal-100 relative overflow-hidden mb-2"><Image src="/us.png" alt="Us" width={400} height={400} className="object-cover w-full h-full"/></div>
                       <div className="text-center font-handwriting text-slate-600 font-bold text-xl mt-4" style={{ fontFamily: 'cursive' }}>Me & You (In my dreams) ❤️</div>
                     </motion.div>
-                    <p className="mt-8 text-center text-teal-800/60 text-sm italic">
-                      "It wasn't a specific moment. The second I saw you enter our class, I felt a premonition.<br/> 
-                      My soul recognized you before I even knew your name."
-                    </p>
+                    <p className="mt-8 text-center text-teal-800/60 text-sm italic">"It wasn't a specific moment. The second I saw you enter our class, I felt a premonition.<br/> My soul recognized you before I even knew your name."</p>
                   </div>
                 ) : activeMessage.isInteractive ? (
                   // SLAP MODE
@@ -323,7 +406,7 @@ export default function UltimateApology() {
                   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="space-y-6 text-lg text-teal-900/80 leading-relaxed font-serif">
                     <p>"It wasn't just Class 6. It was every moment since. Through the years of separation, my compass only ever pointed one way—towards you."</p>
                     <p>You aren't just my past crush or my present healer. You are my inevitable future. I wished, deep down, that you would choose me again.</p>
-                     <p>You are my fairytale coming true. Just promise you'll keep dragging me to morning assembly (and through life) whenever I get lost.</p>
+                      <p>You are my fairytale coming true. Just promise you'll keep dragging me to morning assembly (and through life) whenever I get lost.</p>
                     <p className="text-xl md:text-3xl font-bold text-rose-600 mt-8 block transform scale-105">I am madly, crazily, and spiritually in love with you.</p>
                   </motion.div>
                   <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1 }} className="mt-8 flex justify-center"><Heart className="fill-rose-500 text-rose-500 drop-shadow-xl animate-pulse" size={48} /></motion.div>

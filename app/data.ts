@@ -1,5 +1,38 @@
-import { BookOpen, Phone, Sparkles, Heart, Gift } from "lucide-react";
+// --- MUSHAIRA DATA ---
+export const MUSHAIRA_DATA = [
+  // --- PREVIOUS ENTRIES ---
+  { id: "hasrat", title: "Hasrat (The Longing)", type: "text", text: "Hasrat hai ke unko kareeb se dekhein... \nKareeb ho to aankhein uthayi nahi jaati." },
+  { id: "taras", title: "Taras (The Glimpse)", type: "text", text: "Main taras jaata hoon uske deedar ke liye... \nKitne khushnaseeb honge woh log, jo use roz dekhte honge." },
+  { id: "minnat", title: "Minnat (The Price)", type: "text", text: "Dil ki minnat par chahiye tha, aankhon ki zeenat par chahiye tha... \nUse muft mein hi le gaya koi, jo mujhe har keemat par chahiye tha." },
+  { id: "shukr", title: "Shukr (Gratitude)", type: "text", text: "Humne bhi khuda ka shukr manaya hota... \nYa to mil hi gaya hota tu, ya to mila hi na hota." },
+  { id: "intezaar", title: "Intezaar (The Warning)", type: "text", text: "Pyar mat karna... Uske liye apni neendein kharaab mat karna. \nDo din aayega wo khushi se milne, teesre din kahega hamara intezaar mat karna." },
+  { id: "barish", title: "Baarish (The Dream)", type: "text", text: "Ki baarish haath mein uska haath tha... \nChand kadam hum saath chale, aankhein khuli to khwab tha." },
+  { id: "kismat", title: "Kismat (Destiny)", type: "text", text: "Mohabbat bhi khushi deti hai, Zindagi rulati kyu hai? \nAur jo log kismat mein nahi hote, kismat unse milati kyu hai?" },
+  { id: "izhaar", title: "Izhaar (Definition of Love)", type: "text", text: "Jhuki hui nigahon ko iqraar kehte hain... \nSirf paane ka naam hi ishq nahi, kuch kho dene ko bhi pyaar kehte hain." },
+  { id: "dhadkan", title: "Dhadkan (Last Wish)", type: "text", text: "Is dil mein dhadkan sirf tere naam ki hogi... \nAdhuri khwahish toh bahut si hain, magar aakhri khwahish sirf tere deedar ki hogi." },
+  { id: "jhoot", title: "Jhooth (The Lie)", type: "text", text: "Aur bhi itne hain ke unka jhooth pakad lete hain... \nPar deewane bhi itne hain ke phir bhi yakeen kar lete hain." },
+  { id: "ruk_paya", title: "The Failed Goodbye", type: "text", text: "Na woh ruk paya, na main rok payi... \nNa woh mana paya, na main maan payi. \nKuch is tarah khatam hui hamari prem kahani, \nNa woh mera hua poori tarah, na main usko apna bana payi." },
+  { id: "gham", title: "Aasmaan (The Sky)", type: "text", text: "Aaj saare gham aasmaan ko suna diye maine... \nAaj main chup hoon, aur yeh aasmaan baras raha hai." },
+  { id: "kho_diya", title: "Khoya (Lost on Earth)", type: "text", text: "Jo log aasmaan ko taakte hain... \nUnhone zameen par kuch to khoya hoga." },
+  { id: "mohabbat_kya_hai", title: "Mohabbat Kya Hai", type: "text", text: "Main tujhe karke dikhata ke mohabbat kya hai... \nKaise seene se lagau ke kisi aur ke ho? \nMere hote, to batata ke mohabbat kya hai." },
+  { id: "ujda_ghar", title: "Ghar (The Ruin)", type: "text", text: "Ab kya ujadoge mera... mujhe kya hairaan karoge? \nTumhi to rehte ho is dil mein... Apna hi ghar viraana karoge?" },
+  { id: "dard", title: "Dard (The Pain)", type: "text", text: "Tera deedar ho gaya toh kya... Aankhon ko see liya humne tujhe dekhne ke baad. \nDard ki bhi apni hi adaa hai, woh bhi bardasht walon par hi fida hai." },
+  { id: "kadar", title: "Kadar (Worth)", type: "text", text: "Magar ek baat samajh nahi aayi Ghalib... \nJo jaa-naseen se mohabbat, woh kadar kyu nahi karta?" },
+  { id: "char_din", title: "Char Din (Four Days)", type: "text", text: "Mohabbat rahi char din zindagi mein... \nRaha char din ka asar zindagi bhar." },
+  { id: "chura_li", title: "Aankhein (Thief)", type: "text", text: "Ishq ki shuruwat aankhon se hi hoti hai... \nYakeen maano, neend bhi aankhon se koi chura le jaati hai." },
 
+  // --- NEW BATCH 3 (ADDED NOW) ---
+  { id: "hisab", title: "Wafaon Ka Hisaab", type: "text", text: "Woh aaye the apni wafaon ka hisaab karne... \nKitaab-e-ishq kholi, to karzdaar hokar chale gaye." },
+  { id: "adhuri", title: "Adhuri Mohabbat", type: "text", text: "Itna dard-e-dil mein kami hui... Ajeeb hai mohabbat meri... \nNa mil saki, na khatam hui." },
+  { id: "aaina", title: "Aaina (Hypocrisy)", type: "text", text: "Kisi ki hum aaine sa kirdaar rakhte hain... \nBolte nahi hain kuch kisi ko, lekin chup chaap sab parakhte hain. \nAur maze ki baat, humein nasihat bhi woh dete hain jo khud chehre do-chaar rakhte hain." },
+  { id: "ishq_adhura", title: "Ishq Adhura", type: "text", text: "Ishq adhura reh jaaye to khud par naaz karna... \nKehte hain sacchi mohabbat mukammal nahi hoti." },
+  { id: "shikayat", title: "Shikayat (Complaint)", type: "text", text: "Aaj Khuda ne mujhse kaha, bhula kyu nahi dete use? \nMaine kaha itni hi fikar thi, to mila kyu nahi dete use?" },
+  { id: "aag", title: "Aag (Fire)", type: "text", text: "Kyun na... kuch khwahishon mein aag lagayi jaaye?" },
+  { id: "ibadat", title: "Ibadat (Worship)", type: "text", text: "Ishq karna ibadat hai... \nIshq mein maut bhi shahaadat hai." },
+  { id: "kahin_ke_nahi", title: "Kahin Ke Nahi", type: "text", text: "Maan liya hai maine, ab batao Ghalib... \nKahan rehte hain woh log, jo kahin ke nahi rehte?" },
+  { id: "aansu", title: "Aansu (Tears)", type: "text", text: "Aansu ajeeb kahani hai... khushi aur gham dono ki nishani hai. \nSamajhne walon ke liye anmol hain, aur na samajhne walon ke liye paani hai." },
+  { id: "ishara", title: "Ishara (The Sign)", type: "text", text: "Main rukna chahta hoon... \nPar teri baatein chale jaane ka ishaara karti hain." }
+];
 // --- BLUSH MESSAGES ---
 export const BLUSH_MESSAGES = [
   "You waited 27 minutes just to let me hear your voice... that courage makes my heart race.",
@@ -162,6 +195,13 @@ text: "You were the star of the Quiz, solo-carrying our class to victory. But wh
         img: "/birthday_call.png", 
         text: "It was my Birthday, 2026. You were traveling, sitting in a Railway Waiting Room because the train was delayed. You waited 27 minutes... just to make that call at midnight. Amidst all that chaos and travel, you found time for me. Hearing your voice was the only gift I needed. We are back, and this connection is crazy.",
         songSuggestion: "Tum Jo Aaye"
+      },
+      {
+        title: "The Mushaira",
+        img: "/mushaira.png", 
+        text: "Jan 23, 2026. A winter afternoon turned into poetry. You made me part of your family's joy through these voice notes.",
+        songSuggestion: "Nazm Nazm",
+        isMushaira: true // <--- THIS FLAG IS KEY
       }
       
     ]
